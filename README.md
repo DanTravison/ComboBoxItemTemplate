@@ -1,2 +1,2 @@
 # SfComboBoxItemTemplate
-Illustrates item binding issues with SfComboBox
+Illustrates item binding issues with SyncFusion SfComboBox
