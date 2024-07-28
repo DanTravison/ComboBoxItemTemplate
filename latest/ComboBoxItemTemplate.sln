@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComboBoxItemTemplate", "ComboBoxItemTemplate.csproj", "{3F32CAAD-3713-4FD8-9D0F-B14500C0DCA1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F32CAAD-3713-4FD8-9D0F-B14500C0DCA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F32CAAD-3713-4FD8-9D0F-B14500C0DCA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F32CAAD-3713-4FD8-9D0F-B14500C0DCA1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3F32CAAD-3713-4FD8-9D0F-B14500C0DCA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F32CAAD-3713-4FD8-9D0F-B14500C0DCA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F32CAAD-3713-4FD8-9D0F-B14500C0DCA1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1FAF1B70-4CCF-4D61-915C-48507D14D3BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FAF1B70-4CCF-4D61-915C-48507D14D3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FAF1B70-4CCF-4D61-915C-48507D14D3BE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1FAF1B70-4CCF-4D61-915C-48507D14D3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FAF1B70-4CCF-4D61-915C-48507D14D3BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FAF1B70-4CCF-4D61-915C-48507D14D3BE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A641AA6-2C90-43EF-A7DB-DFEDA253BA1F}
+	EndGlobalSection
+EndGlobal
