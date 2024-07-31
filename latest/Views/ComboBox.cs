@@ -62,11 +62,8 @@ public class ComboBox : SfComboBox
         {
             // If the dropdown is opening and the content height needs to be calculated.
             if (_comboBoxContentsHeight == 0 && !IsDropDownOpen && LayoutContainer != null)
-            {                 
+            {
                 _comboBoxContentsHeight = MeasureDropdownContents().Height;
-
-                // Get the position below the ComboBox.
-                double bottom = Y + Height;
                 MaxDropDownHeight = _comboBoxContentsHeight;
             }
         }
@@ -179,8 +176,18 @@ public class ComboBox : SfComboBox
 
             // Assuming no spacing above the first item and below the last item.
             double height = size.Request.Height + (itemCount - 1) * itemPadding.VerticalThickness;
-            height += 4; // ISSUE: Add a little fudge factor to ensure the last item is fully visible.
 
+            if (ShowDropdownHeaderView)
+            {
+                height += DropdownHeaderViewHeight;
+            }
+            if (ShowDropdownFooterView)
+            {
+                // NOTE: DropdownFooterViewHeight appears to be too large
+                // leaving a gap between the last item and the footer.
+                // TODO: Determine if this is by design.
+                height += DropdownFooterViewHeight;
+            }
             return new
             (
                 size.Request.Width,
@@ -189,7 +196,6 @@ public class ComboBox : SfComboBox
         }
         return Size.Zero;
     }
-
  
     #endregion Content Measurement
 }

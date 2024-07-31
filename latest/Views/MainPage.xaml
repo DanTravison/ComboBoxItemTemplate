@@ -9,7 +9,7 @@
              x:DataType="viewmodels:MainViewModel">
 
     <Grid ColumnDefinitions="Auto, Auto, Auto"
-          RowDefinitions="Auto, *"
+          RowDefinitions="Auto, Auto, *"
           HorizontalOptions="Center"
           VerticalOptions="Center"
           ColumnSpacing="10"
@@ -20,8 +20,7 @@
                VerticalTextAlignment="Center"
                Text="Select An Item"/>
         
-        <views:ComboBox x:Name="ComboBox"
-                        Grid.Column="1"
+        <views:ComboBox Grid.Column="1"
                         Grid.Row="0"
                         ItemsSource="{Binding Commands, Mode=OneWay}"
                         ItemTemplate="{StaticResource CommandTemplateSelector}"
@@ -33,7 +32,7 @@
                         IsClearButtonVisible="False"
                         DropDownBackground="{StaticResource PopupBackgroundColor}"
                         IsAutoFit="True"
-                        LayoutContainer="{Binding Source={x:Reference LayoutContainer}}"
+                        LayoutContainer="{Binding Source={x:Reference LayoutContainer1}}"
                         />
          <Button Command="{Binding RefreshCommand}"
                 Grid.Column="2"
@@ -41,11 +40,53 @@
                 Text="{Binding RefreshCommand.Text}"
                 ToolTipProperties.Text="{Binding RefreshCommand.Description}"
                 />
+
+        <Label Grid.Column="0" 
+               Grid.Row="1"
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center"
+               Text="Show footer and header"/>
+
+        <views:ComboBox Grid.Column="1"
+                        Grid.Row="1"
+                        ItemsSource="{Binding Commands, Mode=OneWay}"
+                        ItemTemplate="{StaticResource CommandTemplateSelector}"
+                        SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
+                        SelectionMode="Single"
+                        DisplayMemberPath="Text"
+                        WidthRequest="200"
+                        IsEditable="False"
+                        IsClearButtonVisible="False"
+                        DropDownBackground="{StaticResource PopupBackgroundColor}"
+                        IsAutoFit="True"
+                        LayoutContainer="{Binding Source={x:Reference LayoutContainer2}}"
+                        ShowDropdownHeaderView="True"
+                        ShowDropdownFooterView="True"
+                        >
+            <views:ComboBox.DropdownHeaderView>
+                <Label Text="Header Text"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontAttributes="Bold"
+                       FontSize="16"
+                       />
+            </views:ComboBox.DropdownHeaderView>
+            <views:ComboBox.DropdownFooterView>
+                <Label Text="Footer Text"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontSize="24"
+                       />
+            </views:ComboBox.DropdownFooterView>
+         </views:ComboBox>
+
         <!-- Provide a Layout class for ComboBox to use to measure its dropdown content. 
              The container will temporarily populated with the combobox's ItemSource and ItemTemplate
              to measure the size of the dropdown content.-->
-        <VerticalStackLayout x:Name="LayoutContainer"
-                             Grid.Row="1" 
+        <VerticalStackLayout x:Name="LayoutContainer1"
+                             Grid.Row="2" 
                              Grid.Column="0"
                              Grid.ColumnSpan="3"
                              Margin="0"
@@ -53,7 +94,17 @@
                              Padding="0"
                              />
 
-
+        <!-- NOTE: Attempting to share the same LayoutContainer breaks the second combobox.
+             Use a new instance to work around
+        -->
+        <VerticalStackLayout x:Name="LayoutContainer2"
+                             Grid.Row="2" 
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             Margin="0"
+                             Spacing="0"
+                             Padding="0"
+                             />
     </Grid>
 
 </ContentPage>
