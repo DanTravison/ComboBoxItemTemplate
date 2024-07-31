@@ -8,5 +8,6 @@
                         x:DataType="objectmodel:Command"
                         Margin="0">
     <Label Text="{Binding Text}" 
-           Style="{StaticResource ComboBoxItemLabel}"/>
+           Style="{StaticResource ComboBoxItemLabel}"
+           Margin="5,5,5,5"/>
 </views:ComboBoxItemView>

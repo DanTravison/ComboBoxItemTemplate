@@ -5,6 +5,17 @@ using System.Diagnostics;
 
 public class ComboBoxItemView : ContentView
 {
+    public override SizeRequest Measure(double widthConstraint, double heightConstraint, MeasureFlags flags = MeasureFlags.None)
+    {
+        SizeRequest size = base.Measure(widthConstraint, heightConstraint, flags);
+        BindingInfo(out string type, out string text);
+        double width = Math.Round(size.Request.Width);
+        double height = Math.Round(size.Request.Height);
+        Trace.WriteLine($"MeasureOverride.{type}[{text}]: {width}x{height}");
+
+        return size;
+    }
+
     protected override Size MeasureOverride(double widthConstraint, double heightConstraint)
     {
         SizeRequest size = base.MeasureOverride(widthConstraint, heightConstraint);

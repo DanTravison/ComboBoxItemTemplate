@@ -17,9 +17,7 @@
 
         <Color x:Key="PopupBackgroundColor">WhiteSmoke</Color>
         <Color x:Key="PopupTextColor">Black</Color>
-        <Color x:Key="PopupSeparatorColor">#707070</Color>
-        <x:Double x:Key="SeparatorHeight">5</x:Double>
-        <x:Double x:Key="SeparatorLineHeight">3</x:Double>
+        <Color x:Key="PopupSeparatorColor">Gray</Color>
 
         <Style x:Key="ComboBoxItemLabel" TargetType="Label"
                x:DataType="objectmodel:Command"
@@ -27,26 +25,28 @@
             <Setter Property="TextColor" Value="{StaticResource PopupTextColor}"/>
         </Style>
 
+        <Style TargetType="views:Separator" x:Key="PopupSeparatorStyle">
+            <Setter Property="ForegroundColor" Value="{StaticResource PopupSeparatorColor}"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource PopupBackgroundColor}"/>
+            <Setter Property="Thickness" Value="3"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+
         <viewmodels:CommandTemplateSelector x:Key="CommandTemplateSelector">
             <viewmodels:CommandTemplateSelector.OneLine>
                 <DataTemplate x:DataType="objectmodel:Command">
-                    <ViewCell>
-                        <views:OneLineItemView/>
-                    </ViewCell>
+                    <views:OneLineItemView/>
                 </DataTemplate>
             </viewmodels:CommandTemplateSelector.OneLine>
             <viewmodels:CommandTemplateSelector.TwoLine>
                 <DataTemplate x:DataType="viewmodels:TwoLineCommand">
-                    <ViewCell>
-                        <views:TwoLineItemView/>
-                    </ViewCell>
+                    <views:TwoLineItemView/>
                 </DataTemplate>
             </viewmodels:CommandTemplateSelector.TwoLine>
             <viewmodels:CommandTemplateSelector.Separator>
                 <DataTemplate x:DataType="objectmodel:Command">
-                    <ViewCell>
-                        <views:SeparatorItemView/>
-                    </ViewCell>
+                    <views:Separator Style="{StaticResource PopupSeparatorStyle}"/>
                 </DataTemplate>
             </viewmodels:CommandTemplateSelector.Separator>
         </viewmodels:CommandTemplateSelector>

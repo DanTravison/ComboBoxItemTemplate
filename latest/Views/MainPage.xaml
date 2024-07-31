@@ -20,24 +20,40 @@
                VerticalTextAlignment="Center"
                Text="Select An Item"/>
         
-        <input:SfComboBox x:Name="ComboBox"
-                          Grid.Column="1"
-                          Grid.Row="0"
-                          ItemsSource="{Binding Commands, Mode=OneWay}"
-                          ItemTemplate="{StaticResource CommandTemplateSelector}"
-                          SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
-                          SelectionMode="Single"
-                          DisplayMemberPath="Text"
-                          WidthRequest="200"
-                          IsEditable="False"
-                          IsClearButtonVisible="False"
-                          />
-        <Button Command="{Binding RefreshCommand}"
+        <views:ComboBox x:Name="ComboBox"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        ItemsSource="{Binding Commands, Mode=OneWay}"
+                        ItemTemplate="{StaticResource CommandTemplateSelector}"
+                        SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
+                        SelectionMode="Single"
+                        DisplayMemberPath="Text"
+                        WidthRequest="200"
+                        IsEditable="False"
+                        IsClearButtonVisible="False"
+                        DropDownBackground="{StaticResource PopupBackgroundColor}"
+                        IsAutoFit="True"
+                        LayoutContainer="{Binding Source={x:Reference LayoutContainer}}"
+                        />
+         <Button Command="{Binding RefreshCommand}"
                 Grid.Column="2"
                 Grid.Row="0"
                 Text="{Binding RefreshCommand.Text}"
                 ToolTipProperties.Text="{Binding RefreshCommand.Description}"
                 />
+        <!-- Provide a Layout class for ComboBox to use to measure its dropdown content. 
+             The container will temporarily populated with the combobox's ItemSource and ItemTemplate
+             to measure the size of the dropdown content.-->
+        <VerticalStackLayout x:Name="LayoutContainer"
+                             Grid.Row="1" 
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             Margin="0"
+                             Spacing="0"
+                             Padding="0"
+                             />
+
+
     </Grid>
 
 </ContentPage>

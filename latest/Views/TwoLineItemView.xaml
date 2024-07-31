@@ -9,7 +9,8 @@
                         Margin="0"
                         >
     
-    <VerticalStackLayout Spacing="4">
+    <Grid RowDefinitions="Auto, Auto"
+          Margin="5,5,5,5">
         <Label Grid.Row="0" 
                Text="{Binding Text}" 
                Style="{StaticResource ComboBoxItemLabel}"/>
@@ -17,6 +18,6 @@
                Text="{Binding Description}" 
                Style="{StaticResource ComboBoxItemLabel}"
                FontAttributes="Italic"/>
-    </VerticalStackLayout>
+    </Grid>
 
 </views:ComboBoxItemView>
