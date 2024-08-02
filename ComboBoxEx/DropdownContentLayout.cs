@@ -69,11 +69,19 @@ sealed class DropdownContentLayoutManager : LayoutManager
 
         double measuredWidth = 0;
         double measuredHeight = 0;
+
+        // ISSUE: When a header or a footer is present
+        // the height is too large resulting in an extra item being
+        // visible.
+        // Its not clear if this is an issue with this layout
+        // or SfComboBox but no workaround has been found.
         int maxItems = owner.MaxDropDownItems;
+
+        bool showFooter = owner.ShowDropdownFooterView;
+        bool showHeader = owner.ShowDropdownHeaderView;
 
         try
         {
-            double minimumItemHeight = double.MaxValue;
             IEnumerable<object> items = owner.ItemsSource as IEnumerable<object>;
             DataTemplate itemTemplate = owner.ItemTemplate;
             if (itemTemplate is DataTemplateSelector selector)
@@ -105,7 +113,6 @@ sealed class DropdownContentLayoutManager : LayoutManager
                 }
 
                 Size measured = child.Measure(double.PositiveInfinity, double.PositiveInfinity);
-                minimumItemHeight = Math.Min(minimumItemHeight, measured.Height);
                 Thickness margin = child.Margin;
 
                 measuredWidth = Math.Max
@@ -133,26 +140,27 @@ sealed class DropdownContentLayoutManager : LayoutManager
             // 2: Header and No Footer: A gap between the last item and the bottom of the dropdown.
             // TODO: Determine if this is by design.
 
-            if (owner.ShowDropdownHeaderView)
+            if (showHeader)
             {
                 adjust += owner.DropdownHeaderViewHeight;
             }
-            if (owner.ShowDropdownFooterView)
+            if (showFooter)
             {
                 adjust += owner.DropdownFooterViewHeight;
             }
 
             // ISSUE: SfComboBox 'appears' to add spacing after the last item 
             // when there is no footer or header which causes a small amount of scrolling.
-            if (adjust == 0)
+            if (!showHeader && !showFooter)
             {
-                // Adjust the height to prevent the scrolling.
+                // Adjust the height to avoid the scrolling.
                 adjust += 2;
             }
 
             measuredHeight += adjust;
 
             #endregion Adjust for Header an Footer
+
         }
         finally
         {

@@ -22,19 +22,19 @@
     </ContentPage.Resources>
 
     <Grid ColumnDefinitions="Auto, Auto, Auto"
-          RowDefinitions="Auto, Auto, Auto, Auto, *"
+          RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, *"
           HorizontalOptions="Center"
           VerticalOptions="Center"
           ColumnSpacing="10"
           >
-        <Label Grid.Column="0" 
-               Grid.Row="0"
+        <Label Grid.Row="0"
+               Grid.Column="0" 
                HorizontalTextAlignment="End"
                VerticalTextAlignment="Center"
                Text="Select An Item"/>
-        
-        <ex:ComboBox Grid.Column="1"
-                     Grid.Row="0"
+
+        <ex:ComboBox Grid.Row="0"
+                     Grid.Column="1"
                      Style="{StaticResource ComboBoxStyle}"
                      ItemsSource="{Binding Commands, Mode=OneWay}"
                      ItemTemplate="{StaticResource CommandTemplateSelector}"
@@ -48,14 +48,14 @@
                 ToolTipProperties.Text="{Binding RefreshCommand.Description}"
                 />
 
-        <Label Grid.Column="0" 
-               Grid.Row="1"
+        <Label Grid.Row="1"
+               Grid.Column="0" 
                HorizontalTextAlignment="End"
                VerticalTextAlignment="Center"
-               Text="Show header and footer"/>
+               Text="Header + Footer"/>
 
-        <ex:ComboBox Grid.Column="1"
-                     Grid.Row="1"
+        <ex:ComboBox Grid.Row="1"
+                     Grid.Column="1"
                      Style="{StaticResource ComboBoxStyle}"
                      ItemsSource="{Binding Commands, Mode=OneWay}"
                      ItemTemplate="{StaticResource CommandTemplateSelector}"
@@ -83,22 +83,74 @@
             </ex:ComboBox.DropdownFooterView>
          </ex:ComboBox>
 
-        <Label Grid.Column="0" 
-               Grid.Row="2"
+        <Label Grid.Row="2"
+               Grid.Column="0" 
                HorizontalTextAlignment="End"
                VerticalTextAlignment="Center"
-               Text="Show header with MaxDropdownItems"/>
+               Text="MaxDropdownItems"/>
 
-        <ex:ComboBox Grid.Column="1"
-                     Grid.Row="2"
+        <ex:ComboBox Grid.Row="2"
+                     Grid.Column="1"
                      Style="{StaticResource ComboBoxStyle}"
                      ItemsSource="{Binding Commands, Mode=OneWay}"
                      ItemTemplate="{StaticResource CommandTemplateSelector}"
                      SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
                      ContentLayout="{Binding Source={x:Reference ItemLayout}}"
-                     ShowDropdownHeaderView="True"
                      MaxDropDownItems="4"
-                     >
+                     />
+
+        <Label Grid.Row="3"
+               Grid.Column="0" 
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center"
+               Text="Footer + Header + MaxDropdownItems"/>
+
+        <ex:ComboBox Grid.Column="1"
+                     Grid.Row="3"
+                     Style="{StaticResource ComboBoxStyle}"
+                     ItemsSource="{Binding Commands, Mode=OneWay}"
+                     ItemTemplate="{StaticResource CommandTemplateSelector}"
+                     SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
+                     ContentLayout="{Binding Source={x:Reference ItemLayout}}"
+                     MaxDropDownItems="4"
+                     ShowDropdownHeaderView="True"
+                     ShowDropdownFooterView="True"
+                    >
+            <ex:ComboBox.DropdownHeaderView>
+                <Label Text="Header Text"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontAttributes="Bold"
+                       FontSize="16"
+                       />
+            </ex:ComboBox.DropdownHeaderView>
+            <ex:ComboBox.DropdownFooterView>
+                <Label Text="Footer Text"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontSize="24"
+                       />
+            </ex:ComboBox.DropdownFooterView>
+        </ex:ComboBox>
+
+        <Label Grid.Column="0" 
+               Grid.Row="4"
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center"
+               Text="Header + MaxDropdownItems"/>
+
+        <ex:ComboBox Grid.Column="1"
+                        Grid.Row="4"
+                        Style="{StaticResource ComboBoxStyle}"
+                        ItemsSource="{Binding Commands, Mode=OneWay}"
+                        ItemTemplate="{StaticResource CommandTemplateSelector}"
+                        SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
+                        ContentLayout="{Binding Source={x:Reference ItemLayout}}"
+                        ShowDropdownHeaderView="True"
+                        MaxDropDownItems="4"
+                        >
             <ex:ComboBox.DropdownHeaderView>
                 <Label Text="Header Text"
                        TextColor="Black"
@@ -111,26 +163,36 @@
         </ex:ComboBox>
 
         <Label Grid.Column="0" 
-               Grid.Row="3"
+               Grid.Row="5"
                HorizontalTextAlignment="End"
                VerticalTextAlignment="Center"
-               Text="MaxDropdownItems"/>
+               Text="Footer + MaxDropdownItems"/>
 
         <ex:ComboBox Grid.Column="1"
-                     Grid.Row="3"
+                     Grid.Row="5"
                      Style="{StaticResource ComboBoxStyle}"
                      ItemsSource="{Binding Commands, Mode=OneWay}"
                      ItemTemplate="{StaticResource CommandTemplateSelector}"
                      SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
                      ContentLayout="{Binding Source={x:Reference ItemLayout}}"
                      MaxDropDownItems="4"
-                     />
+                     ShowDropdownFooterView="True"
+                     >
+            <ex:ComboBox.DropdownFooterView>
+                <Label Text="Footer Text"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontSize="24"
+                       />
+            </ex:ComboBox.DropdownFooterView>
+        </ex:ComboBox>
 
         <!-- Provide a Layout class for ComboBox to use to measure its dropdown content. 
              The container will be temporarily populated with the combobox's ItemSource and ItemTemplate
              to measure the size of the dropdown content.-->
         <ex:DropdownContentLayout x:Name="ItemLayout"
-                                  Grid.Row="4" 
+                                  Grid.Row="6" 
                                   Grid.Column="0"
                                   Grid.ColumnSpan="3"
                                   />
