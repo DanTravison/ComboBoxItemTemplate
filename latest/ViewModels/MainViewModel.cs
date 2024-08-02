@@ -28,7 +28,7 @@ internal class MainViewModel : ObservableObject
     /// <summary>
     /// Gets the commands to display in the SfComboBox.
     /// </summary>
-    public ReadOnlyObservableCollection<Command> Commands 
+    public ReadOnlyObservableCollection<Command> Commands
     {
         get;
     }

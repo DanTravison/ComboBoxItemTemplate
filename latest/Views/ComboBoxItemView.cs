@@ -1,7 +1,7 @@
 ﻿namespace ComboBoxItemTemplate.Views;
 
-using Command = ObjectModel.Command;
 using System.Diagnostics;
+using Command = ObjectModel.Command;
 
 public class ComboBoxItemView : ContentView
 {

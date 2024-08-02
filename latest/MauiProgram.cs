@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using ComboBoxEx;
+﻿using ComboBoxEx;
+using Microsoft.Extensions.Logging;
 
 namespace ComboBoxItemTemplate
 {
@@ -19,7 +19,7 @@ namespace ComboBoxItemTemplate
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

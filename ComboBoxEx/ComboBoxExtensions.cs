@@ -1,9 +1,9 @@
 ﻿namespace ComboBoxEx;
 
+using Syncfusion.Maui.Core.Hosting;
 using Syncfusion.Maui.Inputs;
 using System.Diagnostics;
 using System.Reflection;
-using Syncfusion.Maui.Core.Hosting;
 
 public static class ComboBoxExtensions
 {

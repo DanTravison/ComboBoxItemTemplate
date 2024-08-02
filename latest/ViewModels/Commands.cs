@@ -5,7 +5,7 @@ using Command = ObjectModel.Command;
 
 public class SeparatorCommand : Command
 {
-    public SeparatorCommand() 
+    public SeparatorCommand()
         : base(NoAction, string.Empty, string.Empty, false)
     {
     }

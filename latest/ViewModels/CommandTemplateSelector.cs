@@ -5,8 +5,8 @@ using Command = ObjectModel.Command;
 public sealed class CommandTemplateSelector : DataTemplateSelector
 {
     public DataTemplate Separator
-    { 
-        get; set; 
+    {
+        get; set;
     }
 
     public DataTemplate OneLine

@@ -22,7 +22,7 @@
     </ContentPage.Resources>
 
     <Grid ColumnDefinitions="Auto, Auto, Auto"
-          RowDefinitions="Auto, Auto, Auto, *"
+          RowDefinitions="Auto, Auto, Auto, Auto, *"
           HorizontalOptions="Center"
           VerticalOptions="Center"
           ColumnSpacing="10"
@@ -39,7 +39,7 @@
                      ItemsSource="{Binding Commands, Mode=OneWay}"
                      ItemTemplate="{StaticResource CommandTemplateSelector}"
                      SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
-                     LayoutContainer="{Binding Source={x:Reference LayoutContainer1}}"
+                     ContentLayout="{Binding Source={x:Reference ItemLayout}}"
                      />
          <Button Command="{Binding RefreshCommand}"
                 Grid.Column="2"
@@ -60,7 +60,7 @@
                      ItemsSource="{Binding Commands, Mode=OneWay}"
                      ItemTemplate="{StaticResource CommandTemplateSelector}"
                      SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
-                     LayoutContainer="{Binding Source={x:Reference LayoutContainer2}}"
+                     ContentLayout="{Binding Source={x:Reference ItemLayout}}"
                      ShowDropdownHeaderView="True"
                      ShowDropdownFooterView="True"
                      >
@@ -87,7 +87,7 @@
                Grid.Row="2"
                HorizontalTextAlignment="End"
                VerticalTextAlignment="Center"
-               Text="Show header"/>
+               Text="Show header with MaxDropdownItems"/>
 
         <ex:ComboBox Grid.Column="1"
                      Grid.Row="2"
@@ -95,8 +95,9 @@
                      ItemsSource="{Binding Commands, Mode=OneWay}"
                      ItemTemplate="{StaticResource CommandTemplateSelector}"
                      SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
-                     LayoutContainer="{Binding Source={x:Reference LayoutContainer3}}"
+                     ContentLayout="{Binding Source={x:Reference ItemLayout}}"
                      ShowDropdownHeaderView="True"
+                     MaxDropDownItems="4"
                      >
             <ex:ComboBox.DropdownHeaderView>
                 <Label Text="Header Text"
@@ -109,39 +110,30 @@
             </ex:ComboBox.DropdownHeaderView>
         </ex:ComboBox>
 
+        <Label Grid.Column="0" 
+               Grid.Row="3"
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center"
+               Text="MaxDropdownItems"/>
+
+        <ex:ComboBox Grid.Column="1"
+                     Grid.Row="3"
+                     Style="{StaticResource ComboBoxStyle}"
+                     ItemsSource="{Binding Commands, Mode=OneWay}"
+                     ItemTemplate="{StaticResource CommandTemplateSelector}"
+                     SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
+                     ContentLayout="{Binding Source={x:Reference ItemLayout}}"
+                     MaxDropDownItems="4"
+                     />
+
         <!-- Provide a Layout class for ComboBox to use to measure its dropdown content. 
-             The container will temporarily populated with the combobox's ItemSource and ItemTemplate
+             The container will be temporarily populated with the combobox's ItemSource and ItemTemplate
              to measure the size of the dropdown content.-->
-        <VerticalStackLayout x:Name="LayoutContainer1"
-                             Grid.Row="3" 
-                             Grid.Column="0"
-                             Grid.ColumnSpan="3"
-                             Margin="0"
-                             Spacing="0"
-                             Padding="0"
-                             />
-
-        <!-- NOTE: Attempting to share the same LayoutContainer breaks the second combobox.
-             Use a new instance to work around
-        -->
-        <VerticalStackLayout x:Name="LayoutContainer2"
-                             Grid.Row="3" 
-                             Grid.Column="0"
-                             Grid.ColumnSpan="3"
-                             Margin="0"
-                             Spacing="0"
-                             Padding="0"
-                             />
-
-        <VerticalStackLayout x:Name="LayoutContainer3"
-                            Grid.Row="3" 
-                            Grid.Column="0"
-                            Grid.ColumnSpan="3"
-                            Margin="0"
-                            Spacing="0"
-                            Padding="0"
-                            />
-
+        <ex:DropdownContentLayout x:Name="ItemLayout"
+                                  Grid.Row="4" 
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="3"
+                                  />
     </Grid>
 
 </ContentPage>

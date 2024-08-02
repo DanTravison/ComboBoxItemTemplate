@@ -3,6 +3,7 @@
 using Microsoft.Maui.Controls;
 using Syncfusion.Maui.Inputs;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 /// <summary>
@@ -36,16 +37,17 @@ public class ComboBox : SfComboBox
         if (propertyName == IsDropDownOpenProperty.PropertyName)
         {
             // If the dropdown is opening and the content height needs to be calculated.
-            if (_comboBoxContentsHeight == 0 && !IsDropDownOpen && LayoutContainer != null)
+            if (_comboBoxContentsHeight == 0 && !IsDropDownOpen && ContentLayout != null)
             {
                 _comboBoxContentsHeight = MeasureDropdownContents().Height;
+                Trace.WriteLine($"ComboBox: MaxDropdownHeight = {_comboBoxContentsHeight}");
                 MaxDropDownHeight = _comboBoxContentsHeight;
             }
         }
         base.OnPropertyChanging(propertyName);
     }
 
-   protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
 
@@ -107,7 +109,44 @@ public class ComboBox : SfComboBox
 
     #endregion AutoFitContent
 
-    #region LayoutContainer
+    #region MaxDropDownItems
+
+    /// <summary>
+    /// Defines the maximum number of items to display in the dropdown.
+    /// </summary>
+    /// <value>
+    /// The maximum number of items to display in the dropdown; otherwise, 
+    /// zero to not constrain the number of items displayed.
+    /// </value>
+    public int MaxDropDownItems
+    {
+        get => (int)GetValue(MaxDropDownItemsProperty);
+        set => SetValue(MaxDropDownItemsProperty, value);
+    }
+
+    /// <summary>
+    /// Provides the <see cref="BindableProperty"/> for <see cref="MaxDropDownItems"/>.
+    /// </summary>
+    public static readonly BindableProperty MaxDropDownItemsProperty = BindableProperty.Create
+    (
+        nameof(MaxDropDownItems),
+        typeof(int),
+        typeof(ComboBox),
+        (int)0,
+        BindingMode.OneWay,
+        coerceValue: (bindable, value) =>
+        {
+            if ((int)value < 0)
+            {
+                value = 0;
+            }
+            return value;
+        }
+    );
+
+    #endregion MaxDropDownItems
+
+    #region ContentLayout
 
     /// <summary>
     /// Provides a <see cref="Layout"/> class for measuring the dropdown contents.
@@ -117,19 +156,19 @@ public class ComboBox : SfComboBox
     /// The typical use case is to use a <see cref="VerticalStackLayout"/>
     /// with margin, spacing and padding set to zero.
     /// </remarks>
-    public Layout LayoutContainer
+    public DropdownContentLayout ContentLayout
     {
-        get => GetValue(LayoutContainerProperty) as Layout;
-        set => SetValue(LayoutContainerProperty, value);
+        get => GetValue(ContentLayoutProperty) as DropdownContentLayout;
+        set => SetValue(ContentLayoutProperty, value);
     }
 
     /// <summary>
-    /// Provides the <see cref="BindableProperty"/> for <see cref="LayoutContainer"/>.
+    /// Provides the <see cref="BindableProperty"/> for <see cref="ContentLayout"/>.
     /// </summary>
-    public static readonly BindableProperty LayoutContainerProperty = BindableProperty.Create
+    public static readonly BindableProperty ContentLayoutProperty = BindableProperty.Create
     (
-        nameof(LayoutContainer),
-        typeof(Layout),
+        nameof(ContentLayout),
+        typeof(DropdownContentLayout),
         typeof(ComboBox),
         null,
         BindingMode.OneWay,
@@ -142,73 +181,24 @@ public class ComboBox : SfComboBox
         }
     );
 
-    #endregion LayoutContainer
+    #endregion ContentLayout
 
     #region Content Measurement
 
     Size MeasureDropdownContents()
     {
-        IEnumerable<object> items = ItemsSource as IEnumerable<object>;
-        DataTemplate itemsTemplate = ItemTemplate;
-        if (LayoutContainer != null && items != null && itemsTemplate != null)
+        if (ContentLayout != null && ItemsSource != null && ItemTemplate != null)
         {
-            Thickness itemPadding = ItemPadding;
-
-            if (ItemTemplate is DataTemplateSelector selector)
+            try
             {
-                BindableLayout.SetItemTemplateSelector(LayoutContainer, selector);
+                // NOTE: Setting owner on demand to avoid layout outside of IsDropdownOpen
+                ContentLayout.Owner = this;
+                return ContentLayout.Measure(double.PositiveInfinity, double.PositiveInfinity);
             }
-            else
+            finally
             {
-                BindableLayout.SetItemTemplate(LayoutContainer, ItemTemplate);
+                ContentLayout.Owner = null;
             }
-            BindableLayout.SetItemsSource(LayoutContainer, items);
-
-            SizeRequest size = LayoutContainer.Measure(double.PositiveInfinity, double.PositiveInfinity);
-            int itemCount = LayoutContainer.Children.Count;
-
-            BindableLayout.SetItemTemplate(LayoutContainer, null);
-            BindableLayout.SetItemsSource(LayoutContainer, null);
-
-            //
-            // TODO: Get accurate information for calculating the height.
-            // Currently, we're making a best guess based on the content.
-            // This is not always accurate since we don't really know
-            // how the dropdown arranges it's content.
-            //
-
-            // Assuming no spacing above the first item and below the last item.
-            double height = size.Request.Height + (itemCount - 1) * itemPadding.VerticalThickness;
-            double adjust = 0;
-            if (ShowDropdownHeaderView)
-            {
-                adjust += DropdownHeaderViewHeight;
-                // ISSUE: When a header is present, but no footer,
-                // The dropdown has a gap at the bottom of the items.
-                // The size 'appears' to be the same as the gap
-                // between the last item and the footer when the footer
-                // is present.
-            }
-            if (ShowDropdownFooterView)
-            {
-                // ISSUE: DropdownFooterViewHeight appears to be too large
-                // leaving a gap between the last item and the footer.
-                // TODO: Determine if this is by design.
-                adjust += DropdownFooterViewHeight;
-            }
-            if (adjust == 0)
-            {
-                // ISSUE: SfComboBox appears to add a small gap after the last item
-                // when there is no footer or header which causes a small amount of scrolling.
-                // This is a best guess to avoid the gap.
-                adjust = 2;
-            }
-
-            return new
-            (
-                size.Request.Width,
-                height + adjust
-            );
         }
         return Size.Zero;
     }
