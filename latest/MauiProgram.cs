@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using Syncfusion.Maui.Core.Hosting;
+using ComboBoxEx;
 
 namespace ComboBoxItemTemplate
 {
@@ -10,7 +10,8 @@ namespace ComboBoxItemTemplate
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                .ConfigureSyncfusionCore()
+                // Proxy ConfigureSyncFusionCore to the shared assembly
+                .ConfigureSyncFusion()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

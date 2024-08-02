@@ -5,11 +5,24 @@
              xmlns:viewmodels="clr-namespace:ComboBoxItemTemplate.ViewModels"
              xmlns:input="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
              xmlns:views="clr-namespace:ComboBoxItemTemplate.Views"
+             xmlns:ex="clr-namespace:ComboBoxEx;assembly=ComboBoxEx"
              x:Class="ComboBoxItemTemplate.Views.MainPage"
              x:DataType="viewmodels:MainViewModel">
 
+    <ContentPage.Resources>
+        <Style TargetType="ex:ComboBox" x:Key="ComboBoxStyle">
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="DisplayMemberPath" Value="Text"/>
+            <Setter Property="WidthRequest" Value="200"/>
+            <Setter Property="IsEditable" Value="False"/>
+            <Setter Property="IsClearButtonVisible" Value="False"/>
+            <Setter Property="DropDownBackground" Value="{StaticResource PopupBackgroundColor}"/>
+            <Setter Property="AutoFitContent" Value="True"/>
+        </Style>
+    </ContentPage.Resources>
+
     <Grid ColumnDefinitions="Auto, Auto, Auto"
-          RowDefinitions="Auto, Auto, *"
+          RowDefinitions="Auto, Auto, Auto, *"
           HorizontalOptions="Center"
           VerticalOptions="Center"
           ColumnSpacing="10"
@@ -20,20 +33,14 @@
                VerticalTextAlignment="Center"
                Text="Select An Item"/>
         
-        <views:ComboBox Grid.Column="1"
-                        Grid.Row="0"
-                        ItemsSource="{Binding Commands, Mode=OneWay}"
-                        ItemTemplate="{StaticResource CommandTemplateSelector}"
-                        SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
-                        SelectionMode="Single"
-                        DisplayMemberPath="Text"
-                        WidthRequest="200"
-                        IsEditable="False"
-                        IsClearButtonVisible="False"
-                        DropDownBackground="{StaticResource PopupBackgroundColor}"
-                        IsAutoFit="True"
-                        LayoutContainer="{Binding Source={x:Reference LayoutContainer1}}"
-                        />
+        <ex:ComboBox Grid.Column="1"
+                     Grid.Row="0"
+                     Style="{StaticResource ComboBoxStyle}"
+                     ItemsSource="{Binding Commands, Mode=OneWay}"
+                     ItemTemplate="{StaticResource CommandTemplateSelector}"
+                     SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
+                     LayoutContainer="{Binding Source={x:Reference LayoutContainer1}}"
+                     />
          <Button Command="{Binding RefreshCommand}"
                 Grid.Column="2"
                 Grid.Row="0"
@@ -45,25 +52,19 @@
                Grid.Row="1"
                HorizontalTextAlignment="End"
                VerticalTextAlignment="Center"
-               Text="Show footer and header"/>
+               Text="Show header and footer"/>
 
-        <views:ComboBox Grid.Column="1"
-                        Grid.Row="1"
-                        ItemsSource="{Binding Commands, Mode=OneWay}"
-                        ItemTemplate="{StaticResource CommandTemplateSelector}"
-                        SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
-                        SelectionMode="Single"
-                        DisplayMemberPath="Text"
-                        WidthRequest="200"
-                        IsEditable="False"
-                        IsClearButtonVisible="False"
-                        DropDownBackground="{StaticResource PopupBackgroundColor}"
-                        IsAutoFit="True"
-                        LayoutContainer="{Binding Source={x:Reference LayoutContainer2}}"
-                        ShowDropdownHeaderView="True"
-                        ShowDropdownFooterView="True"
-                        >
-            <views:ComboBox.DropdownHeaderView>
+        <ex:ComboBox Grid.Column="1"
+                     Grid.Row="1"
+                     Style="{StaticResource ComboBoxStyle}"
+                     ItemsSource="{Binding Commands, Mode=OneWay}"
+                     ItemTemplate="{StaticResource CommandTemplateSelector}"
+                     SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
+                     LayoutContainer="{Binding Source={x:Reference LayoutContainer2}}"
+                     ShowDropdownHeaderView="True"
+                     ShowDropdownFooterView="True"
+                     >
+            <ex:ComboBox.DropdownHeaderView>
                 <Label Text="Header Text"
                        TextColor="Black"
                        HorizontalTextAlignment="Center"
@@ -71,22 +72,48 @@
                        FontAttributes="Bold"
                        FontSize="16"
                        />
-            </views:ComboBox.DropdownHeaderView>
-            <views:ComboBox.DropdownFooterView>
+            </ex:ComboBox.DropdownHeaderView>
+            <ex:ComboBox.DropdownFooterView>
                 <Label Text="Footer Text"
                        TextColor="Black"
                        HorizontalTextAlignment="Center"
                        VerticalTextAlignment="Center"
                        FontSize="24"
                        />
-            </views:ComboBox.DropdownFooterView>
-         </views:ComboBox>
+            </ex:ComboBox.DropdownFooterView>
+         </ex:ComboBox>
+
+        <Label Grid.Column="0" 
+               Grid.Row="2"
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center"
+               Text="Show header"/>
+
+        <ex:ComboBox Grid.Column="1"
+                     Grid.Row="2"
+                     Style="{StaticResource ComboBoxStyle}"
+                     ItemsSource="{Binding Commands, Mode=OneWay}"
+                     ItemTemplate="{StaticResource CommandTemplateSelector}"
+                     SelectedItem="{Binding SelectedCommand, Mode=TwoWay}"
+                     LayoutContainer="{Binding Source={x:Reference LayoutContainer3}}"
+                     ShowDropdownHeaderView="True"
+                     >
+            <ex:ComboBox.DropdownHeaderView>
+                <Label Text="Header Text"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontAttributes="Bold"
+                       FontSize="16"
+                       />
+            </ex:ComboBox.DropdownHeaderView>
+        </ex:ComboBox>
 
         <!-- Provide a Layout class for ComboBox to use to measure its dropdown content. 
              The container will temporarily populated with the combobox's ItemSource and ItemTemplate
              to measure the size of the dropdown content.-->
         <VerticalStackLayout x:Name="LayoutContainer1"
-                             Grid.Row="2" 
+                             Grid.Row="3" 
                              Grid.Column="0"
                              Grid.ColumnSpan="3"
                              Margin="0"
@@ -98,13 +125,23 @@
              Use a new instance to work around
         -->
         <VerticalStackLayout x:Name="LayoutContainer2"
-                             Grid.Row="2" 
+                             Grid.Row="3" 
                              Grid.Column="0"
                              Grid.ColumnSpan="3"
                              Margin="0"
                              Spacing="0"
                              Padding="0"
                              />
+
+        <VerticalStackLayout x:Name="LayoutContainer3"
+                            Grid.Row="3" 
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            Margin="0"
+                            Spacing="0"
+                            Padding="0"
+                            />
+
     </Grid>
 
 </ContentPage>

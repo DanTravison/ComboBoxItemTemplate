@@ -64,17 +64,18 @@ internal class MainViewModel : ObservableObject
         _commands.Clear();
         for (int x = 0; x < count; x++)
         {
+            int item = x + 1;
             if (x == 3 || x == 5)
             {
                 _commands.Add(new SeparatorCommand());
             }
-            if ((x & 1) == 1)
+            if ((x & 1) == 0)
             {
-                _commands.Add(new Command(Command.NoAction, $"One Line {x}", $"Description {x}"));
+                _commands.Add(new Command(Command.NoAction, $"One Line {item} of {count}", $"Description {item} of {count}"));
             }
             else
             {
-                _commands.Add(new TwoLineCommand(Command.NoAction, $"Two Line {x}", $"Description {x}"));
+                _commands.Add(new TwoLineCommand(Command.NoAction, $"Two Line {item} of {count}", $"Description {item} of {count}"));
             }
         }
         SelectedCommand = null;
