@@ -68,6 +68,13 @@ public class ComboBox : SfComboBox
         {
             _comboBoxContentsHeight = 0;
         }
+        else if (propertyName == IsDropDownOpenProperty.PropertyName)
+        {
+            if (IsDropDownOpen)
+            {
+                Trace.WriteLine($"{IsDropDownOpen}");
+            }
+        }
     }
 
     private void OnItemsSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -156,9 +163,9 @@ public class ComboBox : SfComboBox
     /// The typical use case is to use a <see cref="VerticalStackLayout"/>
     /// with margin, spacing and padding set to zero.
     /// </remarks>
-    public DropdownContentLayout ContentLayout
+    public ComboBoxDropdownLayout ContentLayout
     {
-        get => GetValue(ContentLayoutProperty) as DropdownContentLayout;
+        get => GetValue(ContentLayoutProperty) as ComboBoxDropdownLayout;
         set => SetValue(ContentLayoutProperty, value);
     }
 
@@ -168,7 +175,7 @@ public class ComboBox : SfComboBox
     public static readonly BindableProperty ContentLayoutProperty = BindableProperty.Create
     (
         nameof(ContentLayout),
-        typeof(DropdownContentLayout),
+        typeof(ComboBoxDropdownLayout),
         typeof(ComboBox),
         null,
         BindingMode.OneWay,

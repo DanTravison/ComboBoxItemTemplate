@@ -1,52 +1,17 @@
-﻿using Microsoft.Maui.Layouts;
-using System.Diagnostics;
-
 namespace ComboBoxEx;
 
-/// <summary>
-/// Provides a layout for measuring combobox dropdown items.
-/// </summary>
-/// <remarks>
-/// This class is intended for use by <see cref="ComboBox.ContentLayout"/> and should
-/// not be used for general layout purposes.
-/// </remarks>
-public sealed class DropdownContentLayout : Layout
-{
-    ComboBox _owner;
+using Microsoft.Maui.Layouts;
+using System.Diagnostics;
 
-    public DropdownContentLayout()
-    {
-        Margin = Thickness.Zero;
-        Padding = Thickness.Zero;
-    }
-
-    protected override ILayoutManager CreateLayoutManager()
-    {
-        return new DropdownContentLayoutManager(this);
-    }
-
-    #region Owner
-
-    /// <summary>
-    /// Gets or sets the owning <see cref="ComboBox"/>.
-    /// </summary>
-    internal ComboBox Owner
-    {
-        get => _owner;
-        set => _owner = value;
-    }
-
-    #endregion Owner
-}
 
 /// <summary>
-/// Provide a <see cref="LayoutManager"/> for <see cref="DropdownContentLayout"/>.
+/// Provide a <see cref="LayoutManager"/> for <see cref="ComboBoxContentLayout"/>.
 /// </summary>
-sealed class DropdownContentLayoutManager : LayoutManager
+sealed class ComboBoxDropdownLayoutManager : LayoutManager
 {
-    DropdownContentLayout _container;
+    ComboBoxDropdownLayout _container;
 
-    public DropdownContentLayoutManager(DropdownContentLayout layout) :
+    public ComboBoxDropdownLayoutManager(ComboBoxDropdownLayout layout) :
         base(layout)
     {
         _container = layout;
@@ -55,9 +20,9 @@ sealed class DropdownContentLayoutManager : LayoutManager
     /// <summary>
     /// Measures the size of the dropdown content.
     /// </summary>
-    /// <param name="widthConstraint"></param>
-    /// <param name="heightConstraint"></param>
-    /// <returns></returns>
+    /// <param name="widthConstraint">The width constraint.</param>
+    /// <param name="heightConstraint">The height constraint.</param>
+    /// <returns>The required <see cref="Size"/> for the content.</returns>
     public override Size Measure(double widthConstraint, double heightConstraint)
     {
         ComboBox owner = _container.Owner;
@@ -149,7 +114,7 @@ sealed class DropdownContentLayoutManager : LayoutManager
                 adjust += owner.DropdownFooterViewHeight;
             }
 
-            // ISSUE: SfComboBox 'appears' to add spacing after the last item 
+            // ISSUE: SfComboBox 'appears' to add spacing after the last item
             // when there is no footer or header which causes a small amount of scrolling.
             if (!showHeader && !showFooter)
             {
@@ -180,7 +145,7 @@ sealed class DropdownContentLayoutManager : LayoutManager
     /// <returns>The method does nothing and returns the size of the <paramref name="bounds"/>.</returns>
     public override Size ArrangeChildren(Rect bounds)
     {
-        // Do nothing, 
+        // Do nothing,
         return bounds.Size;
     }
 }

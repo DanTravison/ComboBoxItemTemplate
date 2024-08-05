@@ -191,7 +191,7 @@
         <!-- Provide a Layout class for ComboBox to use to measure its dropdown content. 
              The container will be temporarily populated with the combobox's ItemSource and ItemTemplate
              to measure the size of the dropdown content.-->
-        <ex:DropdownContentLayout x:Name="ItemLayout"
+        <ex:ComboBoxDropdownLayout x:Name="ItemLayout"
                                   Grid.Row="6" 
                                   Grid.Column="0"
                                   Grid.ColumnSpan="3"
