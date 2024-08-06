@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 
 /// <summary>
-/// Provide a <see cref="LayoutManager"/> for <see cref="ComboBoxContentLayout"/>.
+/// Provide a <see cref="LayoutManager"/> for <see cref="ComboBoxDropdownLayout"/>.
 /// </summary>
 sealed class ComboBoxDropdownLayoutManager : LayoutManager
 {

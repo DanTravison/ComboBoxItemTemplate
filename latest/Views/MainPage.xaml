@@ -11,13 +11,13 @@
 
     <ContentPage.Resources>
         <Style TargetType="ex:ComboBox" x:Key="ComboBoxStyle">
+            <Setter Property="AutoFitContent" Value="True"/>
             <Setter Property="SelectionMode" Value="Single"/>
             <Setter Property="DisplayMemberPath" Value="Text"/>
             <Setter Property="WidthRequest" Value="200"/>
             <Setter Property="IsEditable" Value="False"/>
             <Setter Property="IsClearButtonVisible" Value="False"/>
             <Setter Property="DropDownBackground" Value="{StaticResource PopupBackgroundColor}"/>
-            <Setter Property="AutoFitContent" Value="True"/>
         </Style>
     </ContentPage.Resources>
 
