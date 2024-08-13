@@ -23,6 +23,7 @@
                x:DataType="objectmodel:Command"
                >
             <Setter Property="TextColor" Value="{StaticResource PopupTextColor}"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
 
         <Style TargetType="views:Separator" x:Key="PopupSeparatorStyle">

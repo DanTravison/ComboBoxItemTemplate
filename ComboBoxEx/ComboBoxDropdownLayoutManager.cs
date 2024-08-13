@@ -35,11 +35,6 @@ sealed class ComboBoxDropdownLayoutManager : LayoutManager
         double measuredWidth = 0;
         double measuredHeight = 0;
 
-        // ISSUE: When a header or a footer is present
-        // the height is too large resulting in an extra item being
-        // visible.
-        // Its not clear if this is an issue with this layout
-        // or SfComboBox but no workaround has been found.
         int maxItems = owner.MaxDropDownItems;
 
         bool showFooter = owner.ShowDropdownFooterView;
@@ -93,17 +88,13 @@ sealed class ComboBoxDropdownLayoutManager : LayoutManager
 
             // Remove padding before the first and after the last item.
             measuredHeight += (itemCount - 1) * owner.ItemPadding.VerticalThickness;
+            _container.DropDownItemHeight = measuredHeight / itemCount;
 
             #endregion Measure Items
 
             #region Adjust for Header an Footer
 
             double adjust = 0;
-
-            // ISSUE: When a header or footer is present, there is a gap after the last item.
-            // 1: Footer: A gap appears between the last item and the footer.
-            // 2: Header and No Footer: A gap between the last item and the bottom of the dropdown.
-            // TODO: Determine if this is by design.
 
             if (showHeader)
             {

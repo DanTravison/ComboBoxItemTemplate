@@ -34,6 +34,18 @@ public sealed class ComboBoxDropdownLayout : Layout
     #region Owner
 
     /// <summary>
+    /// Gets or sets the average item height.
+    /// </summary>
+    /// <remarks>
+    /// This value is updated after measure.
+    /// </remarks>
+    internal double DropDownItemHeight
+    {
+        get;
+        set;
+    }
+
+    /// <summary>
     /// Gets or sets the owning <see cref="ComboBox"/>.
     /// </summary>
     internal ComboBox Owner

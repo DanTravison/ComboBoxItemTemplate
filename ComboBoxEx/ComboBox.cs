@@ -39,9 +39,10 @@ public class ComboBox : SfComboBox
             // If the dropdown is opening and the content height needs to be calculated.
             if (_comboBoxContentsHeight == 0 && !IsDropDownOpen && ContentLayout != null)
             {
-                _comboBoxContentsHeight = MeasureDropdownContents().Height;
+                _comboBoxContentsHeight = MeasureDropdownContents(out double dropdownItemHeight).Height;
                 Trace.WriteLine($"ComboBox: MaxDropdownHeight = {_comboBoxContentsHeight}");
                 MaxDropDownHeight = _comboBoxContentsHeight;
+                DropDownItemHeight = dropdownItemHeight;
             }
         }
         base.OnPropertyChanging(propertyName);
@@ -192,7 +193,7 @@ public class ComboBox : SfComboBox
 
     #region Content Measurement
 
-    Size MeasureDropdownContents()
+    Size MeasureDropdownContents(out double dropdownItemHeight)
     {
         if (ContentLayout != null && ItemsSource != null && ItemTemplate != null)
         {
@@ -200,13 +201,16 @@ public class ComboBox : SfComboBox
             {
                 // NOTE: Setting owner on demand to avoid layout outside of IsDropdownOpen
                 ContentLayout.Owner = this;
-                return ContentLayout.Measure(double.PositiveInfinity, double.PositiveInfinity);
+                Size size = ContentLayout.Measure(double.PositiveInfinity, double.PositiveInfinity);
+                dropdownItemHeight = ContentLayout.DropDownItemHeight;
+                return size;
             }
             finally
             {
                 ContentLayout.Owner = null;
             }
         }
+        dropdownItemHeight = 0;
         return Size.Zero;
     }
 
