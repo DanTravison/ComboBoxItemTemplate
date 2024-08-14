@@ -35,6 +35,8 @@ sealed class ComboBoxDropdownLayoutManager : LayoutManager
         double measuredWidth = 0;
         double measuredHeight = 0;
 
+        // TODO: if MaxDropDownItems > 0, consider measuring all items to get the average height
+        // then throttling MaxDropDownHeight to MaxDropDownItems / average height.
         int maxItems = owner.MaxDropDownItems;
 
         bool showFooter = owner.ShowDropdownFooterView;
