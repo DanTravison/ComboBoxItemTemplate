@@ -24,6 +24,7 @@
                >
             <Setter Property="TextColor" Value="{StaticResource PopupTextColor}"/>
             <Setter Property="FontSize" Value="20"/>
+            <Setter Property="LineBreakMode" Value="NoWrap"/>
         </Style>
 
         <Style TargetType="views:Separator" x:Key="PopupSeparatorStyle">

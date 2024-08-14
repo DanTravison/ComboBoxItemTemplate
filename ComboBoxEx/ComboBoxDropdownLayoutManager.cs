@@ -88,6 +88,13 @@ sealed class ComboBoxDropdownLayoutManager : LayoutManager
 
             // Remove padding before the first and after the last item.
             measuredHeight += (itemCount - 1) * owner.ItemPadding.VerticalThickness;
+            // NOTE: DropdownItemHeight needs to be set to ensure DropDowmMaxHeight is honored.
+            // It is a best guess as the items may have different heights.
+            // If ComboBox.MaxDropdownItems is not set or all of the items are the same height,
+            // it will be the required height; otherwise, it is simply an average
+            // of the first MaxDropdownItems and may not be accurate.
+            // A better approach might be to measure all items to get the average then set
+            // the height to the average * MaxDropdownItems.
             _container.DropDownItemHeight = measuredHeight / itemCount;
 
             #endregion Measure Items
