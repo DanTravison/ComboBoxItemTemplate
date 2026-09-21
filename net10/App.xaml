@@ -1,0 +1,57 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ComboBoxItemTemplate"
+             xmlns:objectmodel="clr-namespace:ObjectModel"
+             xmlns:viewmodels="clr-namespace:ComboBoxItemTemplate.ViewModels"
+             xmlns:input="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+             xmlns:views="clr-namespace:ComboBoxItemTemplate.Views"
+             x:Class="ComboBoxItemTemplate.App">
+    <Application.Resources>
+        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+        <Color x:Key="PopupBackgroundColor">WhiteSmoke</Color>
+        <Color x:Key="PopupTextColor">Black</Color>
+        <Color x:Key="PopupSeparatorColor">Gray</Color>
+
+        <Style x:Key="ComboBoxItemLabel" TargetType="Label"
+               x:DataType="objectmodel:Command"
+               >
+            <Setter Property="TextColor" Value="{StaticResource PopupTextColor}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="LineBreakMode" Value="NoWrap"/>
+        </Style>
+
+        <Style TargetType="views:Separator" x:Key="PopupSeparatorStyle">
+            <Setter Property="ForegroundColor" Value="{StaticResource PopupSeparatorColor}"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource PopupBackgroundColor}"/>
+            <Setter Property="Thickness" Value="3"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+
+        <viewmodels:CommandTemplateSelector x:Key="CommandTemplateSelector">
+            <viewmodels:CommandTemplateSelector.OneLine>
+                <DataTemplate x:DataType="objectmodel:Command">
+                    <views:OneLineItemView/>
+                </DataTemplate>
+            </viewmodels:CommandTemplateSelector.OneLine>
+            <viewmodels:CommandTemplateSelector.TwoLine>
+                <DataTemplate x:DataType="viewmodels:TwoLineCommand">
+                    <views:TwoLineItemView/>
+                </DataTemplate>
+            </viewmodels:CommandTemplateSelector.TwoLine>
+            <viewmodels:CommandTemplateSelector.Separator>
+                <DataTemplate x:DataType="objectmodel:Command">
+                    <views:Separator Style="{StaticResource PopupSeparatorStyle}"/>
+                </DataTemplate>
+            </viewmodels:CommandTemplateSelector.Separator>
+        </viewmodels:CommandTemplateSelector>
+
+    </Application.Resources>
+</Application>
